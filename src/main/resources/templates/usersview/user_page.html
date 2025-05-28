@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -69,96 +69,53 @@
 
     </style>
 </head>
-
 <body>
-<div class="container"> <!-- указываю всю страницу контейнером что бы разделить сеткой на колонки и ряды -->
+<div class="container">
     <!-- 1 ряд сетки страницы -->
     <div class="row p-3" style="background-color: #424242; color: white;">
         <!-- левая колонка 1 ряда -->
         <div class="col text-start">
-            <b th:utext="${auth_user.getEmail()}">val</b>
-            <span th:utext="${'with roles: ' + #strings.arrayJoin(auth_user.getRoles(), ', ')}">val</span>
+            <b th:text="${auth_user_key.getEmail()}">val</b>
+            <span th:text="${'with roles: ' + #strings.arrayJoin(auth_user_key.getRoles(), ', ')}">val</span>
         </div>
         <!-- закрыл левую колонку -->
-        <!-- правая колонка 1 ряда  -->
+        <!-- правая колонка первого ряда -->
         <div class="col text-end">
             <a href="/logout" class="text-decoration-none opacity-50" style="color: white;">Логаут</a>
         </div>
         <!-- закрыл правую колонку -->
     </div>
-    <!-- закрыл первый ряд сетки страницы -->
+    <!-- закрыл 1 ряд сетки страницы -->
+
     <!-- 2 ряд сетки страницы -->
     <div class="row">
+        <!-- левая колонка 2 ряда страницы -->
         <div class="col-2 p-0" style="background-color: #fff;">
-            <!-- левая колонка второго ряда страницы -->
             <a href="/start" class="text-decoration-none">
                 <button class="btn btn-other w-100 text-start mt-3">Start page</button>
             </a>
+            <a href="/admin" class="text-decoration-none">
+                <button class="btn btn-other w-100 text-start mt-3">Admin page</button>
+            </a>
             <br>
             <a href="/user" class="text-decoration-none">
-                <button class="btn btn-current w-100 text-start">User</button>
+                <button class="btn btn-current w-100 text-start">User page</button>
             </a>
         </div>
-        <!-- 1 колонка 2 ряда страницы, содержащая таблицу -->
+        <!-- закрыл левую колонку 2 ряда страницы -->
+        <!-- правая колонка 2 ряда страницы -->
         <div class="col  p-3">
+            <!-- 1 колонка 2 ряда страницы, содержащая таблицу -->
             <h3><strong>User information page</strong></h3>
             <div class="container mt-5">
-                <!-- Вкладки для переключения таблиц -->
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="table1-tab" data-bs-toggle="tab" data-bs-target="#table1"
-                                type="button" role="tab" aria-controls="table1" aria-selected="true">Юзеры БД
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="table2-tab" data-bs-toggle="tab" data-bs-target="#table2"
-                                type="button" role="tab" aria-controls="table2" aria-selected="false">База данных
-                        </button>
-                    </li>
-                </ul>
-
-                <!-- Контент вкладок -->
                 <div class="tab-content" id="myTabContent">
-
-                    <!-- 1 ВКЛАДКА -->
                     <div class="tab-pane fade show active" id="table1" role="tabpanel" aria-labelledby="table1-tab">
                         <table class="table table mb-0 table-striped table-bordered mt-3">
-                            <!-- Таблица для вложения Users table -->
                             <tbody>
                             <tr>
-                                <th>Список юзеров, имеющих доступ к БД</th>
+                                <th>Ваши регистрационные данные из Principal</th>
                             </tr>
-                            <tr><!-- вторая строка тела таблицы (в неё вложена таблица Users table) -->
-                                <td>
-                                    <table class="table table mb-0 table-striped table-hover ">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Имя</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Роли</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody id="usersTableBody">
-                                        <!-- Тело таблицы. Строки добавляются с помощью JavaScript -->
-                                        </tbody>
-                                    </table> <!-- конец Users table таблицы  -->
-                                </td>
-                            </tr>
-                            </tbody> <!-- конец All users таблицы для вложения Users table  -->
-                        </table>
-                    </div>
-                    <!-- конец 1 вкладки -->
-
-                    <!-- 2 ВКЛАДКА -->
-                    <div class="tab-pane fade" id="table2" role="tabpanel" aria-labelledby="table2-tab">
-                        <table class="table table mb-0 table-striped table-bordered mt-3">
-                            <!-- Таблица для вложения Users table -->
-                            <tbody>
                             <tr>
-                                <th>Записи базы данных</th>
-                            </tr>
-                            <tr><!-- вторая строка тела таблицы (в неё вложена таблица Users table) -->
                                 <td>
                                     <table class="table table mb-0 table-striped table-hover ">
                                         <thead>
@@ -167,64 +124,58 @@
                                             <th scope="col">Имя</th>
                                             <th scope="col">Возраст</th>
                                             <th scope="col">Email</th>
+                                            <th scope="col">Роли</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="usersDbTableBody">
+                                        <tbody id="currentUserTable">
                                         </tbody>
-                                    </table> <!-- конец Users table таблицы  -->
+                                    </table>
+                                    <!-- конец Users table таблицы  -->
                                 </td>
                             </tr>
-                            </tbody> <!-- конец All users таблицы для вложения Users table  -->
+                            </tbody>
+                            <!-- конец All users таблицы для вложения Users table  -->
                         </table>
-                    </div> <!-- конец 2 вкладки -->
-                </div><!-- закрыл правую широкую колонку страницы -->
+                    </div>
+                </div>
+                <!-- закрыл правую широкую колонку страницы -->
             </div>
         </div>
-    </div> <!-- закрыл второй ряд сетки страницы -->
-</div> <!-- закрыл область деления страницы сеткой -->
+    </div>
+    <!-- закрыл 2 ряд сетки страницы -->
+</div>
+<!-- закрыл область деления страницы сеткой -->
 
 
 <!-- Скрипт для заполнения таблицы "Список юзеров, имеющих доступ к БД": -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () { // DOMContentLoaded ждёт загрузки страницы
-        fetch('/start/users') // Отправляет GET-запрос к контроллеру по этой ссылке, который возвращает список пользователей в формате JSON.
-            .then(response => response.json()) // Преобразует ответ REST-контроллера из JSON в объект JavaScript.
-            .then(users => {
-                const tbody = document.getElementById('usersTableBody'); // указываю id таблицы, которую надо создать
-                users.forEach(user => { // Для каждого user создается новая строка таблицы и заполняется данными.
-                    const row = document.createElement('tr'); // создаю элемент таблицы tr - строка и при каждой итерации заполняю её данными.
-                    row.innerHTML = `
-                            <td>${user.id}</td>
-                            <td>${user.username}</td>
-                            <td>${user.email}</td>
-                            <td>${user.roles.map(role => role.name.replace("ROLE_", "")).join(', ')}</td>
-                        `;  // Преобразую массив ролей в строку, где имена ролей разделены запятыми и без префикса "ROLE_".
-                    tbody.appendChild(row);
-                });
+    // Ждём полной загрузки DOM-дерева перед выполнением скрипта
+    document.addEventListener("DOMContentLoaded", function () {
+        // Отправляем GET-запрос к API для получения данных текущего пользователя
+        fetch('/api/users/current')
+            // Преобразуем ответ сервера из JSON формата в JavaScript объект
+            .then(response => response.json())
+            // Работаем с полученным объектом user
+            .then(user => {
+                // Находим элемент таблицы в DOM по его ID
+                const tbody = document.getElementById('currentUserTable');
+                // Создаем новую строку таблицы для нашего пользователя
+                const row = document.createElement('tr');
+                // Заполняем строку таблицы данными пользователя
+                row.innerHTML = `
+                    <td>${user.id}</td>                     <!-- ID пользователя -->
+                    <td>${user.name}</td>                   <!-- Имя пользователя -->
+                    <td>${user.age}</td>                    <!-- Возраст пользователя -->
+                    <td>${user.email}</td>                  <!-- Email пользователя -->
+                    <td>${user.roles.map(role =>           <!-- Обрабатываем роли пользователя -->
+                    <!-- Удаляем префикс "ROLE_" из названия роли и объединяем роли в строку через запятую -->
+                    role.name.replace("ROLE_", "")
+                ).join(', ')}</td>
+                `;
+                // Добавляем созданную строку в таблицу
+                tbody.appendChild(row);
             })
-            .catch(error => console.error('Ошибка при загрузке данных:', error));
-    });
-</script>
-
-
-<!-- Скрипт для заполнения таблицы "Список записей в БД" -->
-<script>
-    document.addEventListener("DOMContentLoaded", function () { // DOMContentLoaded ждёт загрузки страницы
-        fetch('/start/usersdb') // Отправляет GET-запрос к контроллеру по этой ссылке, который возвращает список пользователей в формате JSON.
-            .then(response => response.json()) // Преобразует ответ REST-контроллера из JSON в объект JavaScript.
-            .then(users => {
-                const tbody = document.getElementById('usersDbTableBody');
-                users.forEach(user => { // Для каждого user создается новая строка таблицы и заполняется данными.
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                             <td>${user.id}</td>
-                            <td>${user.name}</td>
-                            <td>${user.age}</td>
-                            <td>${user.email}</td>
-                        `;
-                    tbody.appendChild(row);
-                });
-            })
+            // Обрабатываем возможные ошибки при загрузке данных
             .catch(error => console.error('Ошибка при загрузке данных:', error));
     });
 </script>
