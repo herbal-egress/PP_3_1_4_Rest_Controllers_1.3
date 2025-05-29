@@ -1,4 +1,4 @@
-package mvc.spring.security.controllers;
+package mvc.spring.security.controllers.mvc;
 
 import mvc.spring.security.entities.User;
 

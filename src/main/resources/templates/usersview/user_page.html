@@ -152,7 +152,7 @@
     // Ждём полной загрузки DOM-дерева перед выполнением скрипта
     document.addEventListener("DOMContentLoaded", function () {
         // Отправляем GET-запрос к API для получения данных текущего пользователя
-        fetch('/api/users/current')
+        fetch('/api/user/current')
             // Преобразуем ответ сервера из JSON формата в JavaScript объект
             .then(response => response.json())
             // Работаем с полученным объектом user
