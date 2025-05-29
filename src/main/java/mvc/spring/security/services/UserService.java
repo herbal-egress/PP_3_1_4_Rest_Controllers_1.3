@@ -12,8 +12,6 @@ public interface UserService extends UserDetailsService {
 
     User findUserByName(String username);
 
-    User findUserById(int id);
-
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
     void register(User user);

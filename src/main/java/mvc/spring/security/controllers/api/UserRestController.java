@@ -21,7 +21,6 @@ public class UserRestController {
         this.roleService = roleService;
     }
 
-    // даём JSON со всеми юзерами с ролями (через репозиторий):
     @GetMapping("/api/user")
     public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok(userService.findAllUser());
@@ -32,7 +31,6 @@ public class UserRestController {
         return ResponseEntity.ok(userService.findUserByName(principal.getName()));
     }
 
-    // даём JSON со всеми существующими ролями (через репозиторий):
     @GetMapping("/api/user/roles")
     public ResponseEntity<List<Role>> getAllRoles() {
         return ResponseEntity.ok(roleService.findAllRole());
