@@ -142,7 +142,7 @@
 <!-- Скрипт для заполнения данных о user: -->
 <script>
     document.addEventListener("DOMContentLoaded", function () { // DOMContentLoaded ждёт загрузки страницы
-        fetch('/api/users')
+        fetch('/api/user')
             .then(response => response.json()) // Преобразует ответ контроллера в объект JavaScript.
             .then(users => {
                 const tbody = document.getElementById('usersTableBody');

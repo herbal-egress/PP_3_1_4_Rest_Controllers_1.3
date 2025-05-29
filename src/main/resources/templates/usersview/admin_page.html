@@ -325,7 +325,7 @@
         // Основная функция загрузки пользователей
         async function loadUsers() {
             try {
-                const response = await fetch('/api/users');
+                const response = await fetch('/api/user');
                 const users = await response.json();
                 const tbody = document.getElementById('usersTableBody');
                 tbody.innerHTML = ''; // Очищаем таблицу перед заполнением
@@ -400,7 +400,7 @@
         // Функция для загрузки всех ролей
         async function loadAllRoles() {
             try {
-                const response = await fetch('/api/users/roles');
+                const response = await fetch('/api/user/roles');
                 return await response.json();
             } catch (error) {
                 console.error('Ошибка при загрузке ролей:', error);
@@ -458,7 +458,7 @@
                 requestBody.password = userPassword;
             }
             try {
-                const response = await fetch(`/api/users/admin/id?id=${userId}`, {
+                const response = await fetch(`/api/admin/id?id=${userId}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json'
@@ -480,7 +480,7 @@
         document.getElementById('confirmDelete').addEventListener('click', async function () {
             const userId = document.getElementById('userDelId').value;
             try {
-                const response = await fetch(`/api/users/admin/id?id=${userId}`, {
+                const response = await fetch(`/api/admin/id?id=${userId}`, {
                     method: 'DELETE',
                     headers: {
                         'Accept': 'application/json'
@@ -561,7 +561,7 @@
             };
 
             try {
-                const response = await fetch('/api/users/admin/save', {
+                const response = await fetch('/api/admin/save', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

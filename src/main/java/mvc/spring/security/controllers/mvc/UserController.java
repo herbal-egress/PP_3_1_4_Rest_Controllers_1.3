@@ -1,6 +1,4 @@
-package mvc.spring.security.controllers;
-
-import mvc.spring.security.entities.User;
+package mvc.spring.security.controllers.mvc;
 
 import mvc.spring.security.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +23,8 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public String pageForAuthenticatedUsers(Model model, Principal principal) {
-        User userPrincipal = userService.findUserByName(principal.getName());
-        model.addAttribute("auth_user_key", userPrincipal);
+    public String pageForAuthenticatedUsers(Principal principal, Model model) {
+        model.addAttribute("auth_user_key", userService.findUserByName(principal.getName()));
         return "usersview/user_page";
     }
 }

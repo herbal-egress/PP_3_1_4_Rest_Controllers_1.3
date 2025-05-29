@@ -63,28 +63,15 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void register(User user) {
-        // Кодируем пароль
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-
-        // Устанавливаем роли (если они пришли с клиента)
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (user.getRoles() != null) {
-            // Получаем полные объекты ролей из базы по ID
-            Set<Role> managedRoles = user.getRoles().stream()
+            Set<Role> selectedRoles = user.getRoles().stream()
                     .map(role -> roleRepository.findById(role.getId()).orElseThrow())
                     .collect(Collectors.toSet());
-            user.setRoles(managedRoles);
+            user.setRoles(selectedRoles);
         }
-
         userRepository.save(user);
     }
-//    @Transactional
-//    public void register(User user) {
-//        String encodedPassword = passwordEncoder.encode(user.getPassword());
-//        user.setPassword(encodedPassword);
-//        user.setRoles(user.getRoles());
-//        userRepository.save(user);
-//    }
 
     @Override
     @Transactional
